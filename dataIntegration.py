@@ -22,15 +22,21 @@ def es_integration():
 def csv_integration(path):
     csv_df = pd.read_csv(path)
 
+    if os.path.exists(maliciousData):
+        os.remove(maliciousData)
+
+    if os.path.exists(benignData):
+        os.remove(benignData)
+
     with open(maliciousData, 'a') as f:
         for index, row in csv_df.iterrows():
-            if row['label'] == "bad" or "malicious":
-                f.write(row['url'])
+            if row['label'] == "bad" or row['label'] == "malicious":
+                f.write(row['url'] + '\n')
 
     with open(benignData, 'a') as f:
         for index, row in csv_df.iterrows():
-            if row['label'] == "good" or "benign":
-                f.write(row['url'])
+            if row['label'] == "good" or row['label'] == "benign":
+                f.write(row['url'] + '\n')
 
 
 if __name__ == '__main__':
