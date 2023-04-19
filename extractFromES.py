@@ -1,9 +1,9 @@
-import os.path
+import os
 
 from elasticsearch import Elasticsearch
 from urllib.parse import urlparse
 
-dataFromES = "Data/malicious_es.txt"
+dataFromES = "RawData/malicious_es.txt"
 
 
 def is_hostname_url(url):
@@ -53,9 +53,3 @@ def data2file():
 
         # 获取新的scroll_id
         scroll_id = maliciousUrls["_scroll_id"]
-
-
-if __name__ == '__main__':
-    print("Running...")
-    data2file()
-    print("Done!")
