@@ -351,8 +351,8 @@ def pad_seq(urls, max_d1=0, max_d2=0, embedding_size=128):
                 word = url[d1]
                 for d2 in range(len(word)):
                     if d2 < max_d2:
-                        pad_urls[d0,d1,d2] = word[d2]
-                        pad_idx[d0,d1,d2] = pad_vec
+                        pad_urls[d0, d1, d2] = word[d2]
+                        pad_idx[d0, d1, d2] = pad_vec
     return pad_urls, pad_idx
 
 
@@ -367,7 +367,7 @@ def pad_seq_in_word(urls, max_d1=0, embedding_size=128):
         url = urls[d0]
         for d1 in range(len(url)):
             if d1 < max_d1:
-                pad_urls[d0,d1] = url[d1]
+                pad_urls[d0, d1] = url[d1]
                 # pad_idx[d0,d1] = pad_vec
     return pad_urls
 
