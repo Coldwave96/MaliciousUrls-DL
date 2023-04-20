@@ -22,12 +22,10 @@ class URLNet(object):
         with tf.name_scope("embedding"):
             if mode == 4 or mode == 5:
                 self.char_w = tf.Variable(
-                    tf.compat.v1.random_uniform([char_ngram_vocab_size, embedding_size], -1.0, 1.0),
-                    name="char_emb_w")
+                    tf.compat.v1.random_uniform([char_ngram_vocab_size, embedding_size], -1.0, 1.0), name="char_emb_w")
             if mode == 2 or mode == 3 or mode == 4 or mode == 5:
                 self.word_w = tf.Variable(
-                    tf.compat.v1.random_uniform([word_ngram_vocab_size, embedding_size], -1.0, 1.0),
-                    name="word_emb_w")
+                    tf.compat.v1.random_uniform([word_ngram_vocab_size, embedding_size], -1.0, 1.0), name="word_emb_w")
             if mode == 1 or mode == 3 or mode == 5:
                 self.char_seq_w = tf.Variable(tf.compat.v1.random_uniform([char_vocab_size, embedding_size], -1.0, 1.0),
                                               name="char_seq_emb_w")
