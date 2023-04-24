@@ -1,6 +1,4 @@
 import time
-import numpy as np
-from bisect import bisect_left
 import tensorflow as tf
 
 
@@ -97,3 +95,24 @@ def split_url(url, part):
             return token
     else:
         return domain, token, args, sub_dir, file_name, file_type
+
+
+def get_word_vocabulary(urls, max_tokens, max_length_words):
+    vectorizer = tf.keras.layers.TextVectorization(
+        max_tokens = max_tokens,
+        output_mode = "int",
+        output_sequence_length = max_length_words
+    )
+    start = time.time()
+    vectorizer.adapt(urls)
+    x = vectorizer(urls)
+    print("Finished build vocabulary and mapping to x in {}".format(time.time() - start))
+
+    # Get vocabulary list from vectorizer
+    # Then turn into a reversed vocabulary dict, which sets word as index and id as value
+    vocab_list = vectorizer.get_vocabulary()
+    reverse_dict = dict()
+    for i in range(len(vocab_list)):
+        reverse_dict.setdefault(i, vocab_list[i])
+    print("Size of word vocabulary: {}".format(len(reverse_dict)))
+    return x, reverse_dict

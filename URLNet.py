@@ -198,4 +198,3 @@ class UrlNet(object):
         with tf.name_scope("accuracy"):
             correct_preds = tf.equal(self.predictions, tf.argmax(self.input_y, 1))
             self.accuracy = tf.reduce_mean(tf.cast(correct_preds, "float"), name="accuracy")
-
