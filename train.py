@@ -218,9 +218,9 @@ def prep_batches(batch):
     return x_batch, y_batch
 
 with tf.Graph().as_default(): 
-    session_conf = tf.ConfigProto(allow_soft_placement=True, log_device_placement=False) 
+    session_conf = tf.compat.v1.ConfigProto(allow_soft_placement=True, log_device_placement=False) 
     session_conf.gpu_options.allow_growth = True 
-    sess = tf.Session(config=session_conf) 
+    sess = tf.compat.v1.Session(config=session_conf) 
 
     with sess.as_default():  
         cnn = unet.UrlNet(
@@ -236,7 +236,7 @@ with tf.Graph().as_default():
         )
 
         global_step = tf.Variable(0, name="global_step", trainable=False) 
-        optimizer = tf.train.AdamOptimizer(FLAGS["train.lr"]) 
+        optimizer = tf.compat.v1.train.AdamOptimizer(FLAGS["train.lr"]) 
         grads_and_vars = optimizer.compute_gradients(cnn.loss)
         train_op = optimizer.apply_gradients(grads_and_vars, global_step=global_step) 
         
@@ -265,9 +265,9 @@ with tf.Graph().as_default():
         if not os.path.exists(checkpoint_dir): 
             os.makedirs(checkpoint_dir) 
         checkpoint_prefix = checkpoint_dir + "model"
-        saver = tf.train.Saver(tf.global_variables(), max_to_keep=5) 
+        saver = tf.compat.v1.train.Saver(tf.compat.v1.global_variables(), max_to_keep=5) 
         
-        sess.run(tf.global_variables_initializer())
+        sess.run(tf.compat.v1.global_variables_initializer())
 
         train_batches, nb_batches_per_epoch, nb_batches = make_batches(
             x_train_char_seq, 
