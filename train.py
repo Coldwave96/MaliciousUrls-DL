@@ -67,7 +67,7 @@ parser.add_argument('--train.lr', type=float, default=default_lr, metavar="LR",
                     help="learning rate for optimizer (default: {})".format(default_lr))
 
 # log args 
-parser.add_argument('--log.output_dir', type=str, default="Model/runs_1", metavar="OUTPUTDIR",
+parser.add_argument('--log.output_dir', type=str, default="Model/runs", metavar="OUTPUTDIR",
                     help="directory of the output model")
 
 default_print_result = 50
