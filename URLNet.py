@@ -138,7 +138,7 @@ class UrlNet(object):
 
         # Relu and FC
         with tf.name_scope("output"):
-            initializer = tf.keras.initializers.GlorotNormal()
+            initializer = tf.keras.initializers.GlorotNormal(seed=np.random.randint(1, 100))
             w0 = tf.Variable(initializer(shape=(1024, 512)), name="w0")
             b0 = tf.Variable(tf.constant(0.1, shape=[512]), name="b0") 
             l2_loss += tf.nn.l2_loss(w0) 
