@@ -39,6 +39,7 @@ def load_data(malicious_path, benign_path):
 def get_word_vocabulary(urls, max_tokens, max_length_words):
     vectorizer = tf.keras.layers.TextVectorization(
         max_tokens = max_tokens,
+        standardize = "lower",
         output_mode = "int",
         output_sequence_length = max_length_words
     )
@@ -56,37 +57,16 @@ def get_word_vocabulary(urls, max_tokens, max_length_words):
     print("Size of word vocabulary: {}".format(len(reverse_dict)))
     return x, reverse_dict
 
-def get_words(x, reverse_dict, delimit_mode, urls=None):
+def get_words(x, reverse_dict, urls=None):
     processed_x = []
-    if delimit_mode == 0:
-        for url in x:
-            words = []
-            for word_id in url:
-                if word_id != 0:
-                    words.append(reverse_dict[int(word_id)])
-                else:
-                    break
-            processed_x.append(words)
-    elif delimit_mode == 1:
-        for i in range(x.shape[0]):
-            word_url = x[i]
-            raw_url = urls[i]
-            words = []
-            for w in range(len(word_url)):
-                word_id = word_url[w]
-                if word_id == 0:
-                    words.extend(list(raw_url))
-                    break
-                else:
-                    word = reverse_dict[int(word_id)]
-                    idx = raw_url.index(word)
-                    special_chars = list(raw_url[0:idx])
-                    words.extend(special_chars)
-                    words.append(word)
-                    raw_url = raw_url[idx+len(word):]
-                    if w == len(word_url) - 1:
-                        words.extend(list(raw_url))
-            processed_x.append(words)
+    for url in x:
+        words = []
+        for word_id in url:
+            if word_id != 0:
+                words.append(reverse_dict[int(word_id)])
+            else:
+                break
+        processed_x.append(words)
     return processed_x
 
 
@@ -310,7 +290,7 @@ def softmax(x):
 
 
 def batch_iter(data, batch_size, num_epochs, shuffle=True): 
-    data = np.array(data) 
+    data = np.array(data, dtype=object)
     data_size = len(data) 
     num_batches_per_epoch = int((len(data)-1)/batch_size) + 1 
     for epoch in range(num_epochs): 

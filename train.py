@@ -23,7 +23,7 @@ default_max_len_subwords = 20
 parser.add_argument("--data.max_len_subwords", type=int, default=default_max_len_subwords, metavar="MLSW",
                     help="maximum length of url in subwords/characters (default: {})".format(default_max_len_subwords))
 
-default_max_tokens = 10000
+default_max_tokens = 100000
 parser.add_argument("--data.max_tokens", type=int, default=default_max_tokens, metavar="MT",
                     help="maximum number of tokens in the vocabulary (default: {})".format(default_max_tokens))
 
@@ -35,10 +35,6 @@ parser.add_argument('--data.malicious_data', type=str, default='IntegratedData/m
                     help="location of malicious data file")
 parser.add_argument('--data.benign_data', type=str, default='IntegratedData/benign.txt', metavar="BD",
                     help="location of benign data file")
-
-default_delimit_mode = 1 
-parser.add_argument("--data.delimit_mode", type=int, default=default_delimit_mode, metavar="DLMODE",
-                    help="0: delimit by special chars, 1: delimit by special chars + each char as a word (default: {})".format(default_delimit_mode))
 
 # model args
 default_emb_dim = 32
@@ -82,7 +78,7 @@ default_eva_model = 500
 parser.add_argument('--log.eval_every', type=int, default=default_eva_model, metavar="EVALEVERY",
                     help="evaluate the model every this number of steps (default: {})".format(default_eva_model))
 
-default_checkpoint = 1000
+default_checkpoint = 10000
 parser.add_argument('--log.checkpoint_every', type=int, default=default_checkpoint, metavar="CHECKPOINTEVERY",
                     help="save a model every this number of steps (default: {})".format(default_checkpoint))
 
@@ -94,7 +90,7 @@ for key, value in FLAGS.items():
 urls, labels = utils.load_data(FLAGS["data.malicious_data"], FLAGS["data.benign_data"])
 
 x, word_reverse_dict = utils.get_word_vocabulary(urls, FLAGS["data.max_tokens"], FLAGS["data.max_len_words"]) 
-word_x = utils.get_words(x, word_reverse_dict, FLAGS["data.delimit_mode"], urls)
+word_x = utils.get_words(x, word_reverse_dict, urls)
 ngramed_id_x, ngrams_dict, worded_id_x, words_dict = utils.ngram_id_x(word_x, FLAGS["data.max_len_subwords"])
 
 chars_dict = ngrams_dict
@@ -287,9 +283,8 @@ with tf.Graph().as_default():
         
         it = tqdm(
             range(nb_batches), 
-            desc = "emb_mode {} delimit_mode {} train_size {}".format(
+            desc = "emb_mode {} train_size {}".format(
                 FLAGS["model.emb_mode"], 
-                FLAGS["data.delimit_mode"], 
                 x_train.shape[0]
             ),
             ncols = 0
