@@ -142,7 +142,7 @@ with graph.as_default():
         if len(labels) % FLAGS["test.batch_size"] != 0: 
           nb_batches += 1 
         print("Number of batches in total: {}".format(nb_batches))
-        it = tqdm(range(nb_batches), desc="emb_mode {} delimit_mode {} test_size {}".format(FLAGS["model.emb_mode"], FLAGS["data.delimit_mode"], len(labels)), ncols=0)
+        it = tqdm(range(nb_batches), desc="emb_mode {} test_size {}".format(FLAGS["model.emb_mode"], len(labels)), ncols=0)
         for idx in it:
         #for batch in batches:
             batch = next(batches)
