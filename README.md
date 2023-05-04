@@ -64,7 +64,7 @@ Training parameters include:
 |data.max_len_words|The maximum number of words in a URL. The URL is either truncated or padded with a `<PADDING>` token to reach this length.|200|
 |data.max_len_chars|The maximum number of characters in a URL. The URL is either truncted or padded with a `<PADDING>` character to reach this length.|200|
 |data.max_len_subwords|The maximum number of characters in each word in a URL. Each word is either truncated or padded with a `<PADDING>` character to reach this length.|20|
-|data.max_tokens|maximum number of tokens in the vocabulary|100000|
+|data.max_tokens|The maximum number of tokens in the vocabulary|100000|
 |data.dev_pct|Percentage of training data used for validation|0.001|
 |data.malicious_data| Directory of the malicious training dataset|IntegratedData/malicious_train.txt|
 |data.benign_data|Directory of the benign training dataset|IntegratedData/benign_train.txt|
@@ -87,7 +87,7 @@ Test parameters include:
 |data.max_len_words|The maximum number of words in a URL. The URL is either truncated or padded with a `<PADDING>` token to reach this length.|200|
 |data.max_len_chars|The maximum number of characters in a URL. The URL is either truncted or padded with a `<PADDING>` character to reach this length.|200|
 |data.max_len_subwords|The maximum number of characters in each word in a URL. Each word is either truncated or padded with a `<PADDING>` character to reach this length.|20|
-|data.max_tokens|maximum number of tokens in the vocabulary|100000|
+|data.max_tokens|The maximum number of tokens in the vocabulary|100000|
 |data.data_dir|Directory of the test dataset|IntegratedData/test.csv|
 |data.word_dict_dir|Directory of the word dictionary file. Dictionary file is in pickle extension `.pickle`|Model/runs/emb1_32dim_minwf1_1conv3456_5ep/subwords_dict.pickle|
 |data.char_dict_dir|Directory of the character dictionary file. Dictionary file is in pickle extension `.pickle`|Model/runs/emb1_32dim_minwf1_1conv3456_5ep/chars_dict.pickle|
