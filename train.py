@@ -54,7 +54,7 @@ default_nb_epochs = 5
 parser.add_argument('--train.nb_epochs', type=int, default=default_nb_epochs, metavar="NEPOCHS",
                     help="number of training epochs (default: {})".format(default_nb_epochs))
 
-default_batch_size = 128
+default_batch_size = 64
 parser.add_argument('--train.batch_size', type=int, default=default_batch_size, metavar="BATCHSIZE",
                     help="Size of each training batch (default: {})".format(default_batch_size))
 
@@ -78,7 +78,7 @@ default_eva_model = 500
 parser.add_argument('--log.eval_every', type=int, default=default_eva_model, metavar="EVALEVERY",
                     help="evaluate the model every this number of steps (default: {})".format(default_eva_model))
 
-default_checkpoint = 10000
+default_checkpoint = 500
 parser.add_argument('--log.checkpoint_every', type=int, default=default_checkpoint, metavar="CHECKPOINTEVERY",
                     help="save a model every this number of steps (default: {})".format(default_checkpoint))
 

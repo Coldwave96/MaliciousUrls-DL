@@ -1,6 +1,7 @@
 import re
 import time
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 from bisect import bisect_left
 
@@ -33,6 +34,23 @@ def load_data(malicious_path, benign_path):
             urls.append(url)
             labels.append(0)
 
+    return urls, labels
+
+
+def load_test_data(path):
+    urls = []
+    labels = []
+
+    test_df = pd.read_csv(path)
+
+    for _, row in test_df.iterrows():
+        url = split_url(row["url"])
+        urls.append(url)
+        if row["label"] == "benign":
+            labels.append(0)
+        else:
+            labels.append(1)
+    
     return urls, labels
 
 
