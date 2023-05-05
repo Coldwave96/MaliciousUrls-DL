@@ -329,13 +329,13 @@ def save_test_result(labels, all_predictions, all_scores, output_dir):
         if i == 1: 
             output_labels.append(i) 
         else: 
-            output_labels.append(-1) 
+            output_labels.append(0) 
     output_preds = [] 
     for i in all_predictions: 
         if i == 1: 
             output_preds.append(i) 
         else: 
-            output_preds.append(-1) 
+            output_preds.append(0) 
     softmax_scores = [softmax(i) for i in all_scores]
     with open(output_dir, "w") as file: 
         output = "label\tpredict\tscore\n"
